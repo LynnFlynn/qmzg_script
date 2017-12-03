@@ -1,0 +1,2 @@
+python mouseXY.py
+pause
