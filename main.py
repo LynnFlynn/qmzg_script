@@ -17,7 +17,6 @@ class QMZGClass(object):
 		self.testModel = True
 
 	def test(self):
-
 		width = win32api.GetSystemMetrics(win32con.SM_CXSCREEN)
 		height = win32api.GetSystemMetrics(win32con.SM_CYSCREEN)
 		print("{} X {}".format(width,height))
@@ -28,9 +27,9 @@ class QMZGClass(object):
 		win32gui.SetForegroundWindow(hld)
 
 		#资源秘境
-		self.ziyuan_process()
+		#self.ziyuan_process()
 		#神将府
-		#self.shenjiang_process(4,10,1)
+		self.shenjiang_process(4,10,2)
 		#斩将塔
 		#self.zhanjiang_process()
 		#物资争霸
@@ -42,10 +41,10 @@ class QMZGClass(object):
 
 	def mouse_click(self,btn,img):
 		if (self.testModel):
-			print("btn : {}".format(btn["img"].rsplit("/")[-1].split(".")[0]))
+			print("btn : {}".format(btn.img.rsplit("/")[-1].split(".")[0]))
 		result = 100
-		_x = btn["x"]+(btn["w"]//2)
-		_y = btn["y"]+(btn["h"]//2)
+		_x = btn.x+(btn.w//2)
+		_y = btn.y+(btn.h//2)
 		time.sleep(0.5)
 		self.mouse.move(_x, _y)
 		time.sleep(0.5)
@@ -59,14 +58,16 @@ class QMZGClass(object):
 					time.sleep(2)
 
 	def img_similarity(self,img,thr=20):
-		src = ImageGrab.grab((img["x"], img["y"], img["x"] + img["w"], img["y"] + img["h"]))
+		src = ImageGrab.grab((img.x, img.y, img.x + img.w, img.y + img.h))
 		#img1.save('temp.jpg')
-		dst = Image.open(os.path.join("img", img["img"]))
+		dst = Image.open(os.path.join("img", img.img))
 		h1 = src.histogram()
 		h2 = dst.histogram()
 		diff = math.sqrt(reduce(operator.add, list(map(lambda a, b: (a - b) ** 2, h1, h2))) / len(h1))
 		if (self.testModel):
 			print("similarity : {}".format(diff))
+			if diff > 0:
+				src.save("log/{}-{}".format(time.strftime("%Y%m%d%H%M%S"),img.img))
 		if diff < thr :
 			return True
 		else :
@@ -88,8 +89,10 @@ class QMZGClass(object):
 				break
 		self.mouse_click(btnConst.ziyuan_qiangzhen_out,None)
 		#开采资源
-		self.mouse_click(btnConst.ziyuan_kaicai_in,btnConst.ziyuan_kaicai_sousuo)
-		self.mouse_click(btnConst.ziyuan_kaicai_out, None)
+		self.mouse_click(btnConst.ziyuan_kaicai_in,None)
+		if self.img_similarity(btnConst.ziyuan_kaicai_sousuo, 20):
+			#self.mouse_click(btnConst.ziyuan_kaicai_sousuo, None)
+			self.mouse_click(btnConst.ziyuan_kaicai_out, None)
 		#掠夺资源
 		self.mouse_click(btnConst.ziyuan_out,btnConst.zhanjiang_in)
 		return True
@@ -107,16 +110,17 @@ class QMZGClass(object):
 			3: btnConst.shenjiang_3,
 			4: btnConst.shenjiang_4
 		}
-		self.mouse_click(switch[val], btnConst.shenjiang_ok)
-		for i in range(times):
-			if self.img_similarity(btnConst.shenjiang_winning,20):
-				self.mouse_click(btnConst.shenjiang_must,btnConst.shenjiang_must)
-			else:
-				self.mouse_click(btnConst.shenjiang_shitou,btnConst.shenjiang_shitou)
-			self.mouse_click(btnConst.shenjiang_ok,None)
-			time.sleep(2)
-			self.mouse_click(btnConst.shenjiang_jueguo_ok,btnConst.shenjiang_ok)
-		self.mouse_click(btnConst.shenjiang_out,btnConst.shenjiang_out)
+		if not self.img_similarity(btnConst.shenjiang_times,1):
+			self.mouse_click(switch[val], btnConst.shenjiang_ok)
+			for i in range(times):
+				if self.img_similarity(btnConst.shenjiang_winning,20):
+					self.mouse_click(btnConst.shenjiang_must,btnConst.shenjiang_must)
+				else:
+					self.mouse_click(btnConst.shenjiang_shitou,btnConst.shenjiang_shitou)
+				self.mouse_click(btnConst.shenjiang_ok,None)
+				time.sleep(2)
+				self.mouse_click(btnConst.shenjiang_jueguo_ok,btnConst.shenjiang_ok)
+			self.mouse_click(btnConst.shenjiang_out,btnConst.shenjiang_out)
 		self.mouse_click(btnConst.shenjiang_out,btnConst.zhanjiang_in)
 		return True
 
@@ -168,7 +172,7 @@ class QMZGClass(object):
 
 		self.mouse_click(btnConst.fuli_in, btnConst.fuli_out)
 		self.mouse_click(btnConst.fuli_meiri, btnConst.fuli_out)
-		if self.img_similarity(btnConst.fuli_lingqu_1,20) and self.img_similarity(btnConst.fuli_lingqu_2,20):
+		if self.img_similarity(btnConst.fuli_lingqu_1,0.2) and self.img_similarity(btnConst.fuli_lingqu_2,20):
 			self.mouse_click(btnConst.fuli_lingqu_1,None)
 			self.mouse_click(btnConst.fuli_lingqu_2,btnConst.fuli_meiri_out)
 			self.mouse_click(btnConst.fuli_meiri_ok, None)
@@ -198,4 +202,5 @@ if __name__ == '__main__':
 	#ctrl+F1 --> F5
 	qmzg = QMZGClass()
 	qmzg.test()
+
 

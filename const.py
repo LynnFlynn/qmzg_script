@@ -1,63 +1,71 @@
 #coding:utf-8
 
-class btnConst(object):
-	#资源秘境
-	ziyuan_in = {"x": 630,"y":580,"w":70,"h":70,"img":"ziyuan_in.png"}
-	ziyuan_out = {"x": 1570, "y": 140,"w":126,"h":76,"img":"ziyuan_out.png"}
-	ziyuan_qiangzhen_in = {"x": 240, "y": 820,"w":80,"h":96,"img":"ziyuan_qiangzhen_in.png"}
-	ziyuan_qiangzhen_times = {"x": 1010, "y": 680,"w":50,"h":30,"img":"ziyuan_qiangzhen_times.png"}
-	ziyuan_qiangzhen = {"x": 890, "y": 730,"w":120,"h":40,"img":"ziyuan_qiangzhen.png"}
-	ziyuan_qiangzhen_out = {"x": 1220, "y": 306,"w":46,"h":46,"img":"ziyuan_qiangzhen_out.png"}
-	ziyuan_kaicai_in = {"x": 670, "y": 860, "w": 136, "h": 46, "img": "ziyuan_kaicai_in.png"}
-	ziyuan_kaicai_sousuo = {"x": 1130, "y": 720, "w": 80, "h": 40, "img": "ziyuan_kaicai_sousuo.png"}
-	ziyuan_kaicai_out = {"x": 1350, "y": 280, "w": 40, "h": 40, "img": "ziyuan_kaicai_out.png"}
+class btnConst:
+	def __init__(self,x,y,w,h,img):
+		self.x = x
+		self.y = y
+		self.w = w
+		self.h = h
+		self.img = img
+
+#资源秘境
+btnConst.ziyuan_in = btnConst(630,580,70,70,"ziyuan_in.png")
+btnConst.ziyuan_out = btnConst(1570,140,126,76,"ziyuan_out.png")
+btnConst.ziyuan_qiangzhen_in = btnConst(240,820,80,96,"ziyuan_qiangzhen_in.png")
+btnConst.ziyuan_qiangzhen_times = btnConst(1010,680,50,30,"ziyuan_qiangzhen_times.png")
+btnConst.ziyuan_qiangzhen = btnConst(890,730,120,40,"ziyuan_qiangzhen.png")
+btnConst.ziyuan_qiangzhen_out = btnConst(1220,306,46,46,"ziyuan_qiangzhen_out.png")
+btnConst.ziyuan_kaicai_in = btnConst(670,860,136,46,"ziyuan_kaicai_in.png")
+btnConst.ziyuan_kaicai_sousuo = btnConst(1130,720,80,40,"ziyuan_kaicai_sousuo.png")
+btnConst.ziyuan_kaicai_out = btnConst(1350,280,40,40,"ziyuan_kaicai_out.png")
 	#神将府
-	shenjiang_in = {"x": 810, "y": 550,"w":90,"h":60,"img":"shenjiang_in.png"}
-	shenjiang_next = {"x": 1400, "y": 590,"w":50,"h":20,"img":"shenjiang_next.png"}
-	shenjiang_pre = {"x": 460, "y": 590, "w": 50, "h": 20, "img": "shenjiang_pre.png"}
-	shenjiang_1 = {"x": 850, "y": 790, "w": 0, "h": 0, "img": "shenjiang_1.png"}
-	shenjiang_2 = {"x": 850, "y": 790, "w": 0, "h": 0, "img": "shenjiang_2.png"}
-	shenjiang_3 = {"x": 850, "y": 790, "w": 0, "h": 0, "img": "shenjiang_3.png"}
-	shenjiang_4 = {"x": 1250, "y": 790,"w":0,"h": 0, "img" : "shenjiang_4.png"}
-	shenjiang_shitou = {"x": 880, "y": 700,"w":70,"h":70,"img":"shenjiang_shitou.png"}
-	shenjiang_must = {"x": 1250, "y": 690, "w": 90, "h": 90, "img": "shenjiang_must.png"}
-	shenjiang_ok = {"x": 1040, "y": 800,"w":140,"h":46,"img":"shenjiang_ok.png"}
-		# F 850,750,130,46 T 850,790,130,40
-	shenjiang_jueguo_ok = {"x": 910, "y": 790,"w":0,"h":0,"img":"shenjiang_jueguo_ok.png"}
-	shenjiang_winning = {"x": 500, "y": 420, "w": 76, "h": 76, "img": "shenjiang_winning.png"}
-	shenjiang_out = {"x": 1420, "y": 200,"w":50,"h":40,"img":"shenjiang_out.png"}
+btnConst.shenjiang_in = btnConst(810,550,90,60,"shenjiang_in.png")
+btnConst.shenjiang_next = btnConst(1400,590,50,20,"shenjiang_next.png")
+btnConst.shenjiang_pre = btnConst(460,590,50,20,"shenjiang_pre.png")
+btnConst.shenjiang_times = btnConst(1340,850,70,30,"shenjiang_times.png")
+btnConst.shenjiang_1 = btnConst(850,790,0,0,"shenjiang_1.png")
+btnConst.shenjiang_2 = btnConst(850,790,0,0,"shenjiang_2.png")
+btnConst.shenjiang_3 = btnConst(850,790,0,0,"shenjiang_3.png")
+btnConst.shenjiang_4 = btnConst(1250,790,0,0,"shenjiang_4.png")
+btnConst.shenjiang_shitou = btnConst(880,700,70,70,"shenjiang_shitou.png")
+btnConst.shenjiang_must = btnConst(1250,690,90,90,"shenjiang_must.png")
+btnConst.shenjiang_ok = btnConst(1040,800,140,46,"shenjiang_ok.png")
+	# F 850,750,130,46 T 850,790,130,40
+btnConst.shenjiang_jueguo_ok = btnConst(910,790,0,0,"shenjiang_jueguo_ok.png")
+btnConst.shenjiang_winning = btnConst(500,420,76,76,"shenjiang_winning.png")
+btnConst.shenjiang_out = btnConst(1420,200,50,40,"shenjiang_out.png")
 	#斩将塔
-	zhanjiang_in = {"x": 990, "y": 500,"w":70,"h":130,"img":"zhanjiang_in.png"}
-	zhanjiang_out = {"x": 1420, "y": 220,"w":0,"h":0,"img":"zhanjiang_out.png"}
-	zhanjiang_left_in = {"x": 720, "y": 500,"w":200,"h":160,"img":"zhanjiang_left_in.png"}
-	zhanjiang_left_chongzhi = {"x": 1060, "y": 840,"w":120,"h":36,"img":"zhanjiang_left_chongzhi.png"}
-	zhanjiang_left_chongzhi_ok = {"x": 770, "y": 660,"w":90,"h":40,"img":"zhanjiang_left_chongzhi_ok.png"}
-	zhanjiang_left_saodang = {"x": 1280, "y": 840,"w":120,"h":36,"img":"zhanjiang_left_saodang.png"}
-	zhanjiang_left_saodang_ok = {"x": 770, "y": 650,"w":90,"h":40,"img":"zhanjiang_left_saodang_ok.png"}
-	zhanjiang_left_jieguo_ok = {"x": 900, "y": 750, "w": 70, "h": 40, "img": "zhanjiang_left_jieguo_ok.png"}
-	zhanjiang_right_in = {"x": 970, "y": 500, "w": 200, "h": 160, "img": "zhanjiang_right_in.png"}
-	zhanjiang_right_chongzhi = {"x": 1030, "y": 850,"w":140,"h":36,"img":"zhanjiang_right_chongzhi.png"}
-	zhanjiang_right_chongzhi_ok = {"x": 770, "y": 660,"w":90,"h":40,"img":"zhanjiang_right_chongzhi_ok.png"}
-	zhanjiang_right_saodang = {"x": 1260, "y": 850,"w":140,"h":36,"img":"zhanjiang_right_saodang.png"}
-	zhanjiang_right_saodang_ok = {"x": 780, "y": 676,"w":90,"h":40,"img":"zhanjiang_right_saodang_ok.png"}
-	zhanjiang_right_jieguo_ok = {"x": 910, "y": 750,"w":100,"h":50,"img":"zhanjiang_right_jieguo_ok.png"}
-	#
-	wuzi_in = {"x": 1440, "y": 500,"w":70,"h":70,"img":"wuzi_in.png"}
-	wuzi_yijian = {"x": 1300, "y": 770,"w":90,"h":36,"img":"wuzi_yijian.png"}
-	wuzi_kaishi = {"x": 1020, "y": 820, "w": 110, "h": 30, "img": "wuzi_kaishi.png"}
-	wuzi_yijian_out = {"x": 1170, "y": 240, "w": 46, "h": 46, "img": "wuzi_yijian_out.png"}
-	wuzi_out = {"x": 1380, "y": 200, "w": 36, "h": 36, "img": "wuzi_out.png"}
-	#
-	qiandao_in = {"x": 1320, "y": 230, "w": 30, "h": 30, "img": "qiandao_in.png"}
-	qiandao_out = {"x": 1410, "y": 200, "w": 46, "h": 46, "img": "qiandao_out.png"}
-	qiandao_ok = {"x": 1200, "y": 440, "w": 120, "h": 60, "img": "qiandao_ok.png"}
-	fuli_in = {"x": 1230, "y": 230, "w": 30, "h": 30, "img": "fuli_in.png"}
-	fuli_out = {"x": 1400, "y": 240, "w": 46, "h": 46, "img": "fuli_out.png"}
-	fuli_meiri = {"x": 500, "y": 390, "w": 120, "h": 60, "img": "fuli_meiri.png"}
-	fuli_lingqu_1 = {"x": 1250, "y": 620, "w": 110, "h": 40, "img": "fuli_lingqu_1.png"}
-	fuli_lingqu_2 = {"x": 1250, "y": 830, "w": 110, "h": 40, "img": "fuli_lingqu_2.png"}
-	fuli_meiri_ok = {"x": 780, "y": 660, "w": 80, "h": 40, "img": "fuli_meiri_ok.png"}
-	fuli_meiri_out = {"x": 1180, "y": 370, "w": 40, "h": 40, "img": "fuli_meiri_out.png"}
-	junjie_in = {"x": 870, "y": 920, "w": 40, "h": 40, "img": "junjie_in.png"}
-	junjie_lingqu = {"x": 1170, "y": 660, "w": 100, "h": 40, "img": "junjie_lingqu.png"}
-	junjie_out = {"x": 1380, "y": 210, "w": 40, "h": 40, "img": "junjie_out.png"}
+btnConst.zhanjiang_in = btnConst(990,500,70,130,"zhanjiang_in.png")
+btnConst.zhanjiang_out = btnConst(1420,220,0,0,"zhanjiang_out.png")
+btnConst.zhanjiang_left_in = btnConst(720,500,200,160,"zhanjiang_left_in.png")
+btnConst.zhanjiang_left_chongzhi = btnConst(1060,840,120,36,"zhanjiang_left_chongzhi.png")
+btnConst.zhanjiang_left_chongzhi_ok = btnConst(770,660,90,40,"zhanjiang_left_chongzhi_ok.png")
+btnConst.zhanjiang_left_saodang = btnConst(1280,840,120,36,"zhanjiang_left_saodang.png")
+btnConst.zhanjiang_left_saodang_ok = btnConst(770,650,90,40,"zhanjiang_left_saodang_ok.png")
+btnConst.zhanjiang_left_jieguo_ok = btnConst(900,750,70,40,"zhanjiang_left_jieguo_ok.png")
+btnConst.zhanjiang_right_in = btnConst(970,500,200,160,"zhanjiang_right_in.png")
+btnConst.zhanjiang_right_chongzhi = btnConst(1030,850,140,36,"zhanjiang_right_chongzhi.png")
+btnConst.zhanjiang_right_chongzhi_ok = btnConst(770,660,90,40,"zhanjiang_right_chongzhi_ok.png")
+btnConst.zhanjiang_right_saodang = btnConst(1260,850,140,36,"zhanjiang_right_saodang.png")
+btnConst.zhanjiang_right_saodang_ok = btnConst(780,676,90,40,"zhanjiang_right_saodang_ok.png")
+btnConst.zhanjiang_right_jieguo_ok = btnConst(910,750,100,50,"zhanjiang_right_jieguo_ok.png")
+#
+btnConst.wuzi_in = btnConst(1440,500,70,70,"wuzi_in.png")
+btnConst.wuzi_yijian = btnConst(1300,770,90,36,"wuzi_yijian.png")
+btnConst.wuzi_kaishi = btnConst(1020,820,110,30,"wuzi_kaishi.png")
+btnConst.wuzi_yijian_out = btnConst(1170,240,46,46,"wuzi_yijian_out.png")
+btnConst.wuzi_out = btnConst(1380,200,36,36,"wuzi_out.png")
+#
+btnConst.qiandao_in = btnConst(1320,230,30,30,"qiandao_in.png")
+btnConst.qiandao_out = btnConst(1410,200,46,46,"qiandao_out.png")
+btnConst.qiandao_ok = btnConst(1200,440,120,60,"qiandao_ok.png")
+btnConst.fuli_in = btnConst(1230,230,30,30,"fuli_in.png")
+btnConst.fuli_out = btnConst(1400,240,46,46,"fuli_out.png")
+btnConst.fuli_meiri = btnConst(500,390,120,60,"fuli_meiri.png")
+btnConst.fuli_lingqu_1 = btnConst(1250,620,110,40,"fuli_lingqu_1.png")
+btnConst.fuli_lingqu_2 = btnConst(1250,830,110,40,"fuli_lingqu_2.png")
+btnConst.fuli_meiri_ok = btnConst(780,660,80,40,"fuli_meiri_ok.png")
+btnConst.fuli_meiri_out = btnConst(1180,370,40,40,"fuli_meiri_out.png")
+btnConst.junjie_in = btnConst(870,920,40,40,"junjie_in.png")
+btnConst.junjie_lingqu = btnConst(1170,660,100,40,"junjie_lingqu.png")
+btnConst.junjie_out = btnConst(1380,210,40,40,"junjie_out.png")
