@@ -37,11 +37,13 @@ class QMZGClass(object):
 		#self.shenjiang_process(4,10,1)
 		#斩将塔
 		#self.zhanjiang_process()
+		#军团
+		#self.juntuan_process()
 		#物资争霸
 		#self.wuzi_process()
 		#self.wuzi_process()
 		#每日签到
-		#self.qiandao_process()
+		self.qiandao_process()
 		return True
 
 	def mouse_click(self,btn_name,img_name=""):
@@ -166,6 +168,16 @@ class QMZGClass(object):
 	def juntuan_process(self):
 		print("军团")
 		time.sleep(1)
+		self.mouse_click("juntuan_in", "juntuan_out")
+		self.mouse_click("juntuan_hongbao", "juntuan_hongbao_title")
+		#
+		if self.img_similarity("juntuan_hongbao_lingqu",20):
+			self.mouse_click("juntuan_hongbao_lingqu", "")
+			self.mouse_click("juntuan_hongbao_ok", "")
+		else:
+			self.mouse_click("juntuan_hongbao_ok", "")
+		#
+		self.mouse_click("juntuan_out", "zhanjiang_in")
 
 	#物资争霸
 	def wuzi_process(self):
@@ -182,23 +194,31 @@ class QMZGClass(object):
 	def qiandao_process(self):
 		print("每日签到")
 		time.sleep(1)
+		#
 		self.mouse_click("qiandao_in","qiandao_out")
 		if self.img_similarity("qiandao_ok",20):
-			self.mouse_click("qiandao_ok",None)
+			self.mouse_click("qiandao_ok","")
 		self.mouse_click("qiandao_out","zhanjiang_in")
-
+		#
 		self.mouse_click("fuli_in", "fuli_out")
 		self.mouse_click("fuli_meiri", "fuli_out")
 		if self.img_similarity("fuli_lingqu_1",0.2) and self.img_similarity("fuli_lingqu_2",20):
-			self.mouse_click("fuli_lingqu_1",None)
+			self.mouse_click("fuli_lingqu_1","")
 			self.mouse_click("fuli_lingqu_2","fuli_meiri_out")
-			self.mouse_click("fuli_meiri_ok", None)
+			self.mouse_click("fuli_meiri_ok", "")
 		self.mouse_click("fuli_out", "zhanjiang_in")
-
-		self.mouse_click("junjie_in", "junjie_out")
-		if self.img_similarity("junjie_lingqu",20):
-			self.mouse_click("junjie_lingqu",None)
-		self.mouse_click("junjie_out", "zhanjiang_in")
+		#
+		self.mouse_click("junxie_in", "junxie_out")
+		if self.img_similarity("junxie_lingqu",20):
+			self.mouse_click("junxie_lingqu","")
+		self.mouse_click("junxie_out", "zhanjiang_in")
+		#
+		self.mouse_click("shenmo_in", "shenmo_out")
+		if not self.img_similarity("shenmo_yiguaji",10):
+			self.mouse_click("shenmo_guaji", "shenmo_kaishiguaji")
+			self.mouse_click("shenmo_kaishiguaji", "shenmo_guaji_ok")
+			self.mouse_click("shenmo_guaji_ok", "shenmo_yiguaji")
+		self.mouse_click("shenmo_out", "zhanjiang_in")
 		return True
 
 	#群雄争霸
