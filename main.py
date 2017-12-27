@@ -11,6 +11,8 @@ from functools import reduce
 from const import btnDict
 from config import cfgConst
 
+BASE_DIR = os.path.dirname(__file__)
+
 class QMZGClass(object):
 
 	def __init__(self):
@@ -43,7 +45,9 @@ class QMZGClass(object):
 		#self.wuzi_process()
 		#self.wuzi_process()
 		#每日签到
-		self.qiandao_process()
+		#self.qiandao_process()
+		#国战
+		self.guozhan_process()
 		return True
 
 	def mouse_click(self,btn_name,img_name=""):
@@ -208,17 +212,36 @@ class QMZGClass(object):
 			self.mouse_click("fuli_meiri_ok", "")
 		self.mouse_click("fuli_out", "zhanjiang_in")
 		#
-		self.mouse_click("junxie_in", "junxie_out")
-		if self.img_similarity("junxie_lingqu",20):
-			self.mouse_click("junxie_lingqu","")
-		self.mouse_click("junxie_out", "zhanjiang_in")
-		#
 		self.mouse_click("shenmo_in", "shenmo_out")
-		if not self.img_similarity("shenmo_yiguaji",10):
+		if not self.img_similarity("shenmo_yiguaji", 10):
 			self.mouse_click("shenmo_guaji", "shenmo_kaishiguaji")
 			self.mouse_click("shenmo_kaishiguaji", "shenmo_guaji_ok")
 			self.mouse_click("shenmo_guaji_ok", "shenmo_yiguaji")
 		self.mouse_click("shenmo_out", "zhanjiang_in")
+		#
+		self.mouse_click("junxie_in", "junxie_out")
+		if self.img_similarity("junxie_lingqu",20):
+			self.mouse_click("junxie_lingqu","")
+		self.mouse_click("junxie_out", "zhanjiang_in")
+
+		return True
+
+	#国战
+	def guozhan_process(self):
+		print("国战")
+		time.sleep(1)
+		self.mouse_click("guozhan_in", "guozhan_out")
+		#
+		self.mouse_click("guozhan_xinxi_in", "guozhan_juanzeng_in")
+		self.mouse_click("guozhan_juanzeng_in", "guozhan_juanzeng_out")
+		if self.img_similarity("guozhan_juanzeng_times",10):
+			self.mouse_click("guozhan_juanzeng_plus", "")
+			self.mouse_click("guozhan_juanzeng_ok", "guozhan_xinxi_out")
+		else:
+			self.mouse_click("guozhan_juanzeng_out", "guozhan_xinxi_out")
+		#
+		self.mouse_click("guozhan_xinxi_out", "guozhan_out")
+		self.mouse_click("guozhan_out", "zhanjiang_in")
 		return True
 
 	#群雄争霸
