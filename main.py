@@ -15,12 +15,13 @@ BASE_DIR = os.path.dirname(__file__)
 IMG_DIR = "img"
 LOG_DIR = "log"
 
+
 class QMZGClass(object):
     def __init__(self):
         self.mouse = PyMouse()
 
     def test(self):
-        #clear log dir
+        # clear log dir
         if False:
             os.rmdir(LOG_DIR)
             if not os.path.exists(LOG_DIR):
@@ -51,15 +52,16 @@ class QMZGClass(object):
         # self.wuzi_process()
         # self.wuzi_process()
         # 每日签到
-        # self.qiandao_process()
+        self.qiandao_process()
         # 国战
-        self.guozhan_process()
+        # self.guozhan_process()
         return True
 
+    ##鼠标点击
     def mouse_click(self, btn_name, img_name=""):
         btn = btnDict.get(btn_name)
         if (cfgConst.testModel):
-            print("btn : {}".format(btn.img.rsplit("/")[-1].split(".")[0]))
+            print("btn : {}".format(btn_name))
         _x = btn.x + (btn.w // 2)
         _y = btn.y + (btn.h // 2)
         time.sleep(0.5)
@@ -67,7 +69,6 @@ class QMZGClass(object):
         time.sleep(0.5)
         self.mouse.click(_x, _y, 1)
         time.sleep(1)
-        print(img_name)
         if not (img_name == "" or img_name is None):
             for i in range(30):
                 if self.img_similarity(img_name):
@@ -75,6 +76,9 @@ class QMZGClass(object):
                 else:
                     time.sleep(1)
 
+        return True
+
+    ##图片比对
     def img_similarity(self, img_name, thr=20.0):
         time.sleep(1)
         img = btnDict.get(img_name)
@@ -88,10 +92,9 @@ class QMZGClass(object):
         except IOError:
             print("Error: 图片读取失败")
 
-
         diff = math.sqrt(reduce(operator.add, list(map(lambda a, b: (a - b) ** 2, h1, h2))) / len(h1))
         if (cfgConst.testModel):
-            print("similarity : {}".format(diff))
+            print("sim : {}".format(diff))
             if diff > 0:
                 src.save("log/{}-{}".format(time.strftime("%Y%m%d%H%M%S"), img.img))
         if diff < thr:
@@ -158,22 +161,24 @@ class QMZGClass(object):
         # 左-斩将塔
         self.mouse_click("zhanjiang_in", "zhanjiang_left_in")
         self.mouse_click("zhanjiang_left_in", "zhanjiang_left_chongzhi")
-        self.mouse_click("zhanjiang_left_chongzhi", "zhanjiang_left_chongzhi_ok")
-        self.mouse_click("zhanjiang_left_chongzhi_ok", "")
-        self.mouse_click("zhanjiang_left_saodang", "zhanjiang_left_saodang_ok")
-        self.mouse_click("zhanjiang_left_saodang_ok", "")
-        time.sleep(2)
-        self.mouse_click("zhanjiang_left_jieguo_ok", "zhanjiang_left_chongzhi")
+        if not self.img_similarity("zhanjiang_left_times", 5):
+            self.mouse_click("zhanjiang_left_chongzhi", "zhanjiang_left_chongzhi_ok")
+            self.mouse_click("zhanjiang_left_chongzhi_ok", "")
+            self.mouse_click("zhanjiang_left_saodang", "zhanjiang_left_saodang_ok")
+            self.mouse_click("zhanjiang_left_saodang_ok", "")
+            time.sleep(2)
+            self.mouse_click("zhanjiang_left_jieguo_ok", "zhanjiang_left_chongzhi")
         self.mouse_click("zhanjiang_out", "zhanjiang_in")
         # 右-神魔塔
         self.mouse_click("zhanjiang_in", "zhanjiang_left_in")
         self.mouse_click("zhanjiang_right_in", "zhanjiang_right_chongzhi")
-        self.mouse_click("zhanjiang_right_chongzhi", "zhanjiang_right_chongzhi_ok")
-        self.mouse_click("zhanjiang_right_chongzhi_ok", "")
-        self.mouse_click("zhanjiang_right_saodang", "zhanjiang_right_saodang_ok")
-        self.mouse_click("zhanjiang_right_saodang_ok", "")
-        time.sleep(2)
-        self.mouse_click("zhanjiang_right_jieguo_ok", "zhanjiang_right_chongzhi")
+        if not self.img_similarity("zhanjiang_right_times", 5):
+            self.mouse_click("zhanjiang_right_chongzhi", "zhanjiang_right_chongzhi_ok")
+            self.mouse_click("zhanjiang_right_chongzhi_ok", "")
+            self.mouse_click("zhanjiang_right_saodang", "zhanjiang_right_saodang_ok")
+            self.mouse_click("zhanjiang_right_saodang_ok", "")
+            time.sleep(2)
+            self.mouse_click("zhanjiang_right_jieguo_ok", "zhanjiang_right_chongzhi")
         self.mouse_click("zhanjiang_out", "zhanjiang_in")
         return True
 
@@ -207,14 +212,13 @@ class QMZGClass(object):
     def qiandao_process(self):
         print("每日签到")
         time.sleep(1)
-        #
+        #每日签到
         self.mouse_click("qiandao_in", "qiandao_out")
-        # ???
         time.sleep(1)
         if self.img_similarity("qiandao_ok", 20):
             self.mouse_click("qiandao_ok", "")
         self.mouse_click("qiandao_out", "zhanjiang_in")
-        #
+        #VIP福利
         self.mouse_click("fuli_in", "fuli_out")
         self.mouse_click("fuli_meiri", "fuli_out")
         if self.img_similarity("fuli_lingqu_1", 0.2) and self.img_similarity("fuli_lingqu_2", 20):
@@ -222,14 +226,24 @@ class QMZGClass(object):
             self.mouse_click("fuli_lingqu_2", "fuli_meiri_out")
             self.mouse_click("fuli_meiri_ok", "")
         self.mouse_click("fuli_out", "zhanjiang_in")
-        #
+        #神魔主公
         self.mouse_click("shenmo_in", "shenmo_out")
         if not self.img_similarity("shenmo_yiguaji", 10):
             self.mouse_click("shenmo_guaji", "shenmo_kaishiguaji")
             self.mouse_click("shenmo_kaishiguaji", "shenmo_guaji_ok")
             self.mouse_click("shenmo_guaji_ok", "shenmo_yiguaji")
         self.mouse_click("shenmo_out", "zhanjiang_in")
-        #
+        # 开箱寻宝
+        self.mouse_click("xunbao_in", "xunbao_out")
+        if self.img_similarity("xunbao_free", 1):
+            self.mouse_click("xunbao_jin", "xunbao_ok")
+            self.mouse_click("xunbao_ok", "xunbao_out")
+        else:
+            self.mouse_click("xunbao_jin", "xunbao_jin_one")
+            self.mouse_click("xunbao_jin_one", "xunbao_ok")
+            self.mouse_click("xunbao_ok", "xunbao_out")
+        self.mouse_click("xunbao_out", "zhanjiang_in")
+        #军衔
         self.mouse_click("junxie_in", "junxie_out")
         if self.img_similarity("junxie_lingqu", 20):
             self.mouse_click("junxie_lingqu", "")
