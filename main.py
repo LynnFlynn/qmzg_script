@@ -54,7 +54,7 @@ class QMZGClass(object):
         # 每日签到
         self.qiandao_process()
         # 国战
-        # self.guozhan_process()
+        self.guozhan_process()
         return True
 
     ##鼠标点击
@@ -161,8 +161,8 @@ class QMZGClass(object):
         # 左-斩将塔
         self.mouse_click("zhanjiang_in", "zhanjiang_left_in")
         self.mouse_click("zhanjiang_left_in", "zhanjiang_left_chongzhi")
-        if not self.img_similarity("zhanjiang_left_times", 5):
-            self.mouse_click("zhanjiang_left_chongzhi", "zhanjiang_left_chongzhi_ok")
+        self.mouse_click("zhanjiang_left_chongzhi", "")
+        if self.img_similarity("zhanjiang_left_chongzhi_ok", 5):
             self.mouse_click("zhanjiang_left_chongzhi_ok", "")
             self.mouse_click("zhanjiang_left_saodang", "zhanjiang_left_saodang_ok")
             self.mouse_click("zhanjiang_left_saodang_ok", "")
@@ -172,8 +172,8 @@ class QMZGClass(object):
         # 右-神魔塔
         self.mouse_click("zhanjiang_in", "zhanjiang_left_in")
         self.mouse_click("zhanjiang_right_in", "zhanjiang_right_chongzhi")
-        if not self.img_similarity("zhanjiang_right_times", 5):
-            self.mouse_click("zhanjiang_right_chongzhi", "zhanjiang_right_chongzhi_ok")
+        self.mouse_click("zhanjiang_right_chongzhi", "")
+        if self.img_similarity("zhanjiang_right_chongzhi_ok", 5):
             self.mouse_click("zhanjiang_right_chongzhi_ok", "")
             self.mouse_click("zhanjiang_right_saodang", "zhanjiang_right_saodang_ok")
             self.mouse_click("zhanjiang_right_saodang_ok", "")
@@ -270,10 +270,8 @@ class QMZGClass(object):
         self.mouse_click("guozhan_xuanba_mobai_1", "guozhan_mobai_out")
         if self.img_similarity("guozhan_xuanba_putongmobai", 1):
             self.mouse_click("guozhan_xuanba_putongmobai", "guozhan_xuanba_out")
-
-        else:
-            self.mouse_click("guozhan_mobai_out", "guozhan_xuanba_out")
-            self.mouse_click("guozhan_xuanba_out", "guozhan_out")
+        self.mouse_click("guozhan_mobai_out", "guozhan_xuanba_out")
+        self.mouse_click("guozhan_xuanba_out", "guozhan_out")
         self.mouse_click("guozhan_out", "zhanjiang_in")
         return True
 
