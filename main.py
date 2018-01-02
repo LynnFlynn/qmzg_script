@@ -41,7 +41,7 @@ class QMZGClass(object):
             sys.exit()
 
         # 资源秘境
-        # self.ziyuan_process()
+        self.ziyuan_process()
         # 神将府
         # self.shenjiang_process(4,10,1)
         # 斩将塔
@@ -52,9 +52,9 @@ class QMZGClass(object):
         # self.wuzi_process()
         # self.wuzi_process()
         # 每日签到
-        self.qiandao_process()
+        # self.qiandao_process()
         # 国战
-        self.guozhan_process()
+        # self.guozhan_process()
         return True
 
     ##鼠标点击
@@ -122,8 +122,15 @@ class QMZGClass(object):
             self.mouse_click("ziyuan_kaicai_kaicai", "ziyuan_kaicai_in")
         # self.mouse_click("ziyuan_kaicai_out", None)
         # 掠夺资源
-        if not self.img_similarity("ziyuan_lveduo_in", 0.1):
-            self.mouse_click("ziyuan_lveduo_in", "")
+        for i in range(2):
+            if not self.img_similarity("ziyuan_lveduo_times", 0.1):
+                self.mouse_click("ziyuan_lveduo_in", "ziyuan_lveduo_lveduo")
+                self.mouse_click("ziyuan_lveduo_lveduo", "ziyuan_lveduo_jieshu")
+                time.sleep(3)
+                self.mouse_click("ziyuan_lveduo_jieshu", "ziyuan_lveduo_ok")
+                self.mouse_click("ziyuan_lveduo_ok", "ziyuan_kaicai_in")
+            else:
+                break
         self.mouse_click("ziyuan_out", "zhanjiang_in")
         return True
 
