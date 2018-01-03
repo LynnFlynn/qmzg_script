@@ -41,20 +41,22 @@ class QMZGClass(object):
             sys.exit()
 
         # 资源秘境
-        self.ziyuan_process()
+        # self.ziyuan_process()
         # 神将府
         # self.shenjiang_process(4,10,1)
         # 斩将塔
         # self.zhanjiang_process()
         # 军团
         # self.juntuan_process()
-        # 物资争霸
-        # self.wuzi_process()
-        # self.wuzi_process()
         # 每日签到
         # self.qiandao_process()
         # 国战
         # self.guozhan_process()
+        # 物资争霸
+        # for i in range(2):
+        #     self.wuzi_process()
+        # 攻城夺宝
+        self.gongcheng_process(1)
         return True
 
     ##鼠标点击
@@ -290,10 +292,31 @@ class QMZGClass(object):
         return True
 
     # 攻城夺宝
-    def gongcheng_process(self):
+    def gongcheng_process(self,times):
         print("攻城夺宝")
         time.sleep(1)
+        self.mouse_click("duobao_in", "duobao_out")
+        switch = {
+            1: "duobao_city_1",
+            2: "duobao_city_2",
+            3: "duobao_city_3",
+            4: "duobao_city_4"
+        }
+        for i in range(4):
+            if self.img_similarity(switch[i+1], 1):
+                self.mouse_click(switch[i + 1], "duobao_tiaozhan")
+                if not self.img_similarity("duobao_tiaoguo",1):
+                    self.mouse_click("duobao_tiaoguo", "")
+                self.mouse_click("duobao_tiaozhan", "duobao_ok")
+                self.mouse_click("duobao_ok", "")
+                if self.img_similarity("duobao_chongzhi",1):
+                    self.mouse_click("duobao_chongzhi", "duobao_out")
+                else:
+                    self.mouse_click("duobao_jiachen", "duobao_ok_2")
+                    self.mouse_click("duobao_ok_2", "duobao_out")
+                    time.sleep(1)
 
+        self.mouse_click("duobao_out", "zhanjiang_in")
         return True
 
 
