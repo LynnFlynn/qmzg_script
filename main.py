@@ -41,13 +41,13 @@ class QMZGClass(object):
             sys.exit()
 
         # 资源秘境
-        self.ziyuan_process()
+        # self.ziyuan_process()
         # 神将府
         # self.shenjiang_process(4,10,1)
         # 斩将塔
         # self.zhanjiang_process()
         # 军团
-        # self.juntuan_process()
+        self.juntuan_process()
         # 每日签到
         # self.qiandao_process()
         # 国战
@@ -199,14 +199,23 @@ class QMZGClass(object):
         print("军团")
         time.sleep(1)
         self.mouse_click("juntuan_in", "juntuan_out")
-        self.mouse_click("juntuan_hongbao", "juntuan_hongbao_title")
         #
+        self.mouse_click("juntuan_hongbao", "juntuan_hongbao_title")
         if self.img_similarity("juntuan_hongbao_lingqu", 20):
             self.mouse_click("juntuan_hongbao_lingqu", "")
             self.mouse_click("juntuan_hongbao_ok", "")
         else:
             self.mouse_click("juntuan_hongbao_ok", "")
         #
+        self.mouse_click("juntuan_jiejiang_in", "juntuan_jiejiang_out")
+        if self.img_similarity("juntuan_jiejiang_time", 0.5):
+            self.mouse_click("juntuan_jiejiang_huishou", "juntuan_jiejiang_huishou_ok")
+            self.mouse_click("juntuan_jiejiang_huishou_ok", "juntuan_jiejiang_out")
+        if self.img_similarity("juntuan_jiejiang_timeno", 5):
+            self.mouse_click("juntuan_jiejiang_5", "juntuan_jiejiang_huishou_ok")
+            self.mouse_click("juntuan_jiejiang_huishou_ok", "juntuan_jiejiang_out")
+        self.mouse_click("juntuan_jiejiang_out", "juntuan_out")
+
         self.mouse_click("juntuan_out", "zhanjiang_in")
 
     # 物资争霸
