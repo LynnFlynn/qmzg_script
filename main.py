@@ -4,8 +4,8 @@ import time, sys, math, operator, os
 import win32api, win32gui, win32con
 from pymouse import PyMouse
 from pykeyboard import PyKeyboard
-from win32gui import *
-from win32api import *
+# from win32gui import *
+# from win32api import *
 from PIL import ImageGrab, Image
 from functools import reduce
 from const import btnDict
@@ -36,27 +36,27 @@ class QMZGClass(object):
         try:
             hld = win32gui.FindWindow(None, label)
             win32gui.SetForegroundWindow(hld)
-        except error:
+        except win32gui.error:
             print("Error: 没有找到目标窗口")
             sys.exit()
 
         # 资源秘境
-        # self.ziyuan_process()
+        self.ziyuan_process()
         # 神将府
-        # self.shenjiang_process(4,10,1)
+        self.shenjiang_process(4, 10, 1)
         # 斩将塔
-        # self.zhanjiang_process()
+        self.zhanjiang_process()
         # 军团
         self.juntuan_process()
         # 每日签到
-        # self.qiandao_process()
+        self.qiandao_process()
         # 国战
-        # self.guozhan_process()
+        self.guozhan_process()
         # 物资争霸
-        # for i in range(2):
-        #     self.wuzi_process()
+        for i in range(2):
+            self.wuzi_process()
         # 攻城夺宝
-        # self.gongcheng_process(1)
+        self.gongcheng_process(1)
         return True
 
     ##鼠标点击
@@ -125,7 +125,7 @@ class QMZGClass(object):
         # self.mouse_click("ziyuan_kaicai_out", None)
         # 掠夺资源
         for i in range(2):
-            if not self.img_similarity("ziyuan_lveduo_times", 0.1):
+            if not (self.img_similarity("ziyuan_lveduo_times", 0.1) or self.img_similarity("ziyuan_lveduo_times_2", 0.1)):
                 self.mouse_click("ziyuan_lveduo_in", "ziyuan_lveduo_lveduo")
                 self.mouse_click("ziyuan_lveduo_lveduo", "ziyuan_lveduo_jieshu")
                 time.sleep(3)
@@ -233,13 +233,13 @@ class QMZGClass(object):
     def qiandao_process(self):
         print("每日签到")
         time.sleep(1)
-        #每日签到
+        # 每日签到
         self.mouse_click("qiandao_in", "qiandao_out")
         time.sleep(1)
         if self.img_similarity("qiandao_ok", 20):
             self.mouse_click("qiandao_ok", "")
         self.mouse_click("qiandao_out", "zhanjiang_in")
-        #VIP福利
+        # VIP福利
         self.mouse_click("fuli_in", "fuli_out")
         self.mouse_click("fuli_meiri", "fuli_out")
         if self.img_similarity("fuli_lingqu_1", 0.2) and self.img_similarity("fuli_lingqu_2", 20):
@@ -247,7 +247,7 @@ class QMZGClass(object):
             self.mouse_click("fuli_lingqu_2", "fuli_meiri_out")
             self.mouse_click("fuli_meiri_ok", "")
         self.mouse_click("fuli_out", "zhanjiang_in")
-        #神魔主公
+        # 神魔主公
         self.mouse_click("shenmo_in", "shenmo_out")
         if not self.img_similarity("shenmo_yiguaji", 10):
             self.mouse_click("shenmo_guaji", "shenmo_kaishiguaji")
@@ -264,7 +264,7 @@ class QMZGClass(object):
             self.mouse_click("xunbao_jin_one", "xunbao_ok")
             self.mouse_click("xunbao_ok", "xunbao_out")
         self.mouse_click("xunbao_out", "zhanjiang_in")
-        #军衔
+        # 军衔
         self.mouse_click("junxie_in", "junxie_out")
         if self.img_similarity("junxie_lingqu", 20):
             self.mouse_click("junxie_lingqu", "")
@@ -304,7 +304,7 @@ class QMZGClass(object):
         return True
 
     # 攻城夺宝
-    def gongcheng_process(self,times):
+    def gongcheng_process(self, times):
         print("攻城夺宝")
         time.sleep(1)
         self.mouse_click("duobao_in", "duobao_out")
@@ -315,13 +315,13 @@ class QMZGClass(object):
             4: "duobao_city_4"
         }
         for i in range(4):
-            if self.img_similarity(switch[i+1], 1):
+            if self.img_similarity(switch[i + 1], 1):
                 self.mouse_click(switch[i + 1], "duobao_tiaozhan")
-                if not self.img_similarity("duobao_tiaoguo",1):
+                if not self.img_similarity("duobao_tiaoguo", 1):
                     self.mouse_click("duobao_tiaoguo", "")
                 self.mouse_click("duobao_tiaozhan", "duobao_ok")
                 self.mouse_click("duobao_ok", "")
-                if self.img_similarity("duobao_chongzhi",1):
+                if self.img_similarity("duobao_chongzhi", 1):
                     self.mouse_click("duobao_chongzhi", "duobao_out")
                 else:
                     self.mouse_click("duobao_jiachen", "duobao_ok_2")
