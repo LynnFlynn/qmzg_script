@@ -10,6 +10,7 @@ from PIL import ImageGrab, Image
 from functools import reduce
 from const import btnDict
 from config import cfgConst
+import pytesseract
 
 BASE_DIR = os.path.dirname(__file__)
 IMG_DIR = "img"
@@ -43,20 +44,20 @@ class QMZGClass(object):
         # 资源秘境
         self.ziyuan_process()
         # 神将府
-        self.shenjiang_process(4, 10, 1)
+        # self.shenjiang_process(4, 10, 1)
         # 斩将塔
-        self.zhanjiang_process()
+        # self.zhanjiang_process()
         # 军团
-        self.juntuan_process()
+        # self.juntuan_process()
         # 每日签到
-        self.qiandao_process()
+        # self.qiandao_process()
         # 国战
-        self.guozhan_process()
+        # self.guozhan_process()
         # 物资争霸
-        for i in range(2):
-            self.wuzi_process()
+        # for i in range(2):
+        #     self.wuzi_process()
         # 攻城夺宝
-        self.gongcheng_process(1)
+        # self.gongcheng_process(1)
         return True
 
     ##鼠标点击
@@ -104,6 +105,15 @@ class QMZGClass(object):
         else:
             return False
 
+    def image_to_string(self, img_name):
+        time.sleep(1)
+        img = btnDict.get(img_name)
+        src = ImageGrab.grab((img.x, img.y, img.x + img.w, img.y + img.h)).convert('L')
+        code = pytesseract.image_to_string(src)
+        if (cfgConst.testModel):
+            print("code : {}".code)
+        return code
+
     # 资源秘境
     def ziyuan_process(self):
         print("资源秘境")
@@ -125,6 +135,7 @@ class QMZGClass(object):
         # self.mouse_click("ziyuan_kaicai_out", None)
         # 掠夺资源
         for i in range(2):
+            # if not self.image_to_string("ziyuan_lveduo_times") == "0/2":
             if not (self.img_similarity("ziyuan_lveduo_times", 0.1) or self.img_similarity("ziyuan_lveduo_times_2", 0.1)):
                 self.mouse_click("ziyuan_lveduo_in", "ziyuan_lveduo_lveduo")
                 self.mouse_click("ziyuan_lveduo_lveduo", "ziyuan_lveduo_jieshu")
@@ -135,7 +146,7 @@ class QMZGClass(object):
                 break
         if self.img_similarity("ziyuan_yijian", 5):
             self.mouse_click("ziyuan_yijian", "ziyuan_yijian_ok")
-            self.mouse_click("ziyuan_yijian_ok", "ziyuan_out")
+            self.mouse_click("ziyuan_yijian_ok", "")
         self.mouse_click("ziyuan_out", "zhanjiang_in")
         return True
 
