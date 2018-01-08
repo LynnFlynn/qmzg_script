@@ -42,7 +42,7 @@ class QMZGClass(object):
             sys.exit()
 
         # 资源秘境
-        self.ziyuan_process()
+        # self.ziyuan_process()
         # 神将府
         # self.shenjiang_process(4, 10, 1)
         # 斩将塔
@@ -57,7 +57,7 @@ class QMZGClass(object):
         # for i in range(2):
         #     self.wuzi_process()
         # 攻城夺宝
-        # self.gongcheng_process(1)
+        self.gongcheng_process(1)
         return True
 
     ##鼠标点击
@@ -328,8 +328,17 @@ class QMZGClass(object):
         for i in range(4):
             if self.img_similarity(switch[i + 1], 1):
                 self.mouse_click(switch[i + 1], "duobao_tiaozhan")
-                if not self.img_similarity("duobao_tiaoguo", 1):
-                    self.mouse_click("duobao_tiaoguo", "")
+                for i in range(5):
+                    if not self.img_similarity("duobao_tiaoguo", 1):
+                        self.mouse_click("duobao_tiaoguo", "")
+                        if not self.img_similarity("duobao_tiaoguo", 1):
+                            self.mouse_click("duobao_out_2", "duobao_out")
+                            self.mouse_click(switch[i + 1], "duobao_tiaozhan")
+                        else:
+                            break
+                    else:
+                        break
+
                 self.mouse_click("duobao_tiaozhan", "duobao_ok")
                 self.mouse_click("duobao_ok", "")
                 if self.img_similarity("duobao_chongzhi", 1):
