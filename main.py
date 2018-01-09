@@ -42,22 +42,22 @@ class QMZGClass(object):
             sys.exit()
 
         # 资源秘境
-        # self.ziyuan_process()
+        self.ziyuan_process()
         # 神将府
-        # self.shenjiang_process(4, 10, 1)
+        self.shenjiang_process(4, 10, 1)
         # 斩将塔
-        # self.zhanjiang_process()
+        self.zhanjiang_process()
         # 军团
-        # self.juntuan_process()
+        self.juntuan_process()
         # 每日签到
-        # self.qiandao_process()
+        self.qiandao_process()
         # 国战
-        # self.guozhan_process()
+        self.guozhan_process()
         # 物资争霸
-        # for i in range(2):
-        #     self.wuzi_process()
+        for i in range(2):
+            self.wuzi_process()
         # 攻城夺宝
-        self.gongcheng_process(1)
+        # self.gongcheng_process(1)
         return True
 
     ##鼠标点击
@@ -71,7 +71,6 @@ class QMZGClass(object):
         self.mouse.move(_x, _y)
         time.sleep(0.5)
         self.mouse.click(_x, _y, 1)
-        time.sleep(1)
         if not (img_name == "" or img_name is None):
             for i in range(30):
                 if self.img_similarity(img_name):
@@ -117,8 +116,8 @@ class QMZGClass(object):
     # 资源秘境
     def ziyuan_process(self):
         print("资源秘境")
-        time.sleep(1)
         self.mouse_click("ziyuan_in", "ziyuan_qiangzhen_in")
+        time.sleep(1)
         # 强征银币 x3
         self.mouse_click("ziyuan_qiangzhen_in", "ziyuan_qiangzhen")
         for i in range(3):
@@ -153,8 +152,8 @@ class QMZGClass(object):
     # 神将府
     def shenjiang_process(self, val, times, page):
         print("神将府")
-        time.sleep(1)
         self.mouse_click("shenjiang_in", "shenjiang_pre")
+        time.sleep(1)
         if page > 1:
             self.mouse_click("shenjiang_next", "shenjiang_next")
         switch = {
@@ -208,8 +207,8 @@ class QMZGClass(object):
     # 军团
     def juntuan_process(self):
         print("军团")
-        time.sleep(1)
         self.mouse_click("juntuan_in", "juntuan_out")
+        time.sleep(1)
         #
         self.mouse_click("juntuan_hongbao", "juntuan_hongbao_title")
         if self.img_similarity("juntuan_hongbao_lingqu", 20):
@@ -232,8 +231,8 @@ class QMZGClass(object):
     # 物资争霸
     def wuzi_process(self):
         print("物资争霸")
-        time.sleep(1)
         self.mouse_click("wuzi_in", "wuzi_yijian")
+        time.sleep(1)
         self.mouse_click("wuzi_yijian", "wuzi_kaishi")
         self.mouse_click("wuzi_kaishi", "wuzi_yijian_out")
         self.mouse_click("wuzi_yijian_out", "wuzi_out")
@@ -317,8 +316,8 @@ class QMZGClass(object):
     # 攻城夺宝
     def gongcheng_process(self, times):
         print("攻城夺宝")
-        time.sleep(1)
         self.mouse_click("duobao_in", "duobao_out")
+        time.sleep(1)
         switch = {
             1: "duobao_city_1",
             2: "duobao_city_2",
