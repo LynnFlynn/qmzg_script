@@ -42,20 +42,20 @@ class QMZGClass(object):
             sys.exit()
 
         # 资源秘境
-        self.ziyuan_process()
+        # self.ziyuan_process()
         # 神将府
-        self.shenjiang_process(4, 10, 1)
+        # self.shenjiang_process(4, 10, 1)
         # 斩将塔
-        self.zhanjiang_process()
+        # self.zhanjiang_process()
         # 军团
         self.juntuan_process()
         # 每日签到
-        self.qiandao_process()
+        # self.qiandao_process()
         # 国战
-        self.guozhan_process()
+        # self.guozhan_process()
         # 物资争霸
-        for i in range(2):
-            self.wuzi_process()
+        # for i in range(2):
+        #     self.wuzi_process()
         # 攻城夺宝
         # self.gongcheng_process(1)
         return True
@@ -216,6 +216,9 @@ class QMZGClass(object):
             self.mouse_click("juntuan_hongbao_ok", "")
         else:
             self.mouse_click("juntuan_hongbao_ok", "")
+        #
+        self.mouse_click("juntuan_jiangxing_in", "juntuan_jiangxing_out")
+        self.mouse_click("juntuan_jiangxing_out", "juntuan_out")
         #
         self.mouse_click("juntuan_jiejiang_in", "juntuan_jiejiang_out")
         if self.img_similarity("juntuan_jiejiang_time", 0.5):

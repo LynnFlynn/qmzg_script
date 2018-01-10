@@ -91,6 +91,8 @@ btnConst(766,446,100,20,"juntuan_jiejiang_timeno")
 btnConst(950,670,20,20,"juntuan_jiejiang_5")
 btnConst(770,570,70,20,"juntuan_jiejiang_huishou")
 btnConst(800,680,50,30,"juntuan_jiejiang_huishou_ok")
+btnConst(600,790,30,30,"juntuan_jiangxing_in")
+btnConst(1470,210,30,30,"juntuan_jiangxing_out")
 #物资争霸
 btnConst(1440,500,70,70,"wuzi_in")
 btnConst(1300,770,90,36,"wuzi_yijian")
