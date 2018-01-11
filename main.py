@@ -48,11 +48,11 @@ class QMZGClass(object):
         # 斩将塔
         # self.zhanjiang_process()
         # 军团
-        self.juntuan_process()
+        # self.juntuan_process()
         # 每日签到
         # self.qiandao_process()
         # 国战
-        # self.guozhan_process()
+        self.guozhan_process()
         # 物资争霸
         # for i in range(2):
         #     self.wuzi_process()
@@ -282,14 +282,15 @@ class QMZGClass(object):
         if self.img_similarity("junxie_lingqu", 20):
             self.mouse_click("junxie_lingqu", "")
         self.mouse_click("junxie_out", "zhanjiang_in")
-
+        #
+        PyKeyboard()
         return True
 
     # 国战
     def guozhan_process(self):
         print("国战")
-        time.sleep(1)
         self.mouse_click("guozhan_in", "guozhan_out")
+        time.sleep(1)
         #
         self.mouse_click("guozhan_xinxi_in", "guozhan_juanzeng_in")
         self.mouse_click("guozhan_juanzeng_in", "guozhan_juanzeng_out")
