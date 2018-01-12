@@ -17,47 +17,49 @@ IMG_DIR = "img"
 LOG_DIR = "log"
 
 
+def handler(name="def"):
+    def decorator(func):
+        def dec(*args):
+            print("------Start------")
+            print(name)
+            result = func(*args)
+            print("------End------")
+            return result
+        return dec
+    return decorator
+
+
 class QMZGClass(object):
     def __init__(self):
         self.mouse = PyMouse()
 
+    @handler()
     def test(self):
-        # clear log dir
-        if False:
-            os.rmdir(LOG_DIR)
-            if not os.path.exists(LOG_DIR):
-                os.mkdir(LOG_DIR)
-        print(cfgConst.testModel)
-        width = win32api.GetSystemMetrics(win32con.SM_CXSCREEN)
-        height = win32api.GetSystemMetrics(win32con.SM_CYSCREEN)
-        print("{} X {}".format(width, height))
+        # 初始化游戏
+        self.init_game()
+        #self.gongcheng_process(1)
+        return True
 
-        # 打开游戏窗口
-        label = "全民主公 - 搜狗高速浏览器"
-        try:
-            hld = win32gui.FindWindow(None, label)
-            win32gui.SetForegroundWindow(hld)
-        except win32gui.error:
-            print("Error: 没有找到目标窗口")
-            sys.exit()
-
+    def main(self):
+        #初始化游戏
+        self.init_game()
         # 资源秘境
-        # self.ziyuan_process()
+        self.ziyuan_process()
         # 神将府
-        # self.shenjiang_process(4, 10, 1)
+        self.shenjiang_process(4, 10, 1)
         # 斩将塔
-        # self.zhanjiang_process()
+        self.zhanjiang_process()
         # 军团
-        # self.juntuan_process()
+        self.juntuan_process()
         # 每日签到
-        # self.qiandao_process()
+        self.qiandao_process()
         # 国战
         self.guozhan_process()
         # 物资争霸
-        # for i in range(2):
-        #     self.wuzi_process()
+        for i in range(2):
+            self.wuzi_process()
         # 攻城夺宝
-        # self.gongcheng_process(1)
+        self.gongcheng_process(1)
         return True
 
     ##鼠标点击
@@ -96,13 +98,14 @@ class QMZGClass(object):
 
         diff = math.sqrt(reduce(operator.add, list(map(lambda a, b: (a - b) ** 2, h1, h2))) / len(h1))
         if (cfgConst.testModel):
-            print("sim : {}".format(diff))
+            print("sim : {} ({})".format(diff, img_name))
             if diff > 0:
                 src.save("log/{}-{}".format(time.strftime("%Y%m%d%H%M%S"), img.img))
         if diff < thr:
             return True
         else:
             return False
+            # 数字识别
 
     def image_to_string(self, img_name):
         time.sleep(1)
@@ -112,6 +115,26 @@ class QMZGClass(object):
         if (cfgConst.testModel):
             print("code : {}".code)
         return code
+
+    # 初始化游戏
+    def init_game(self):
+        # clear log dir
+        if (cfgConst.testModel):
+            width = win32api.GetSystemMetrics(win32con.SM_CXSCREEN)
+            height = win32api.GetSystemMetrics(win32con.SM_CYSCREEN)
+            print("屏幕分辨率: {} X {}".format(width, height))
+        # 打开游戏窗口
+        label = "全民主公 - 搜狗高速浏览器"
+        try:
+            hld = win32gui.FindWindow(None, label)
+            #激活窗口
+            win32gui.SetForegroundWindow(hld)
+            #窗口最大化
+            win32gui.ShowWindow(hld, win32con.SW_MAXIMIZE)
+        except win32gui.error:
+            print("错误: 没有找到目标窗口")
+            sys.exit()
+        return True
 
     # 资源秘境
     def ziyuan_process(self):
@@ -135,7 +158,8 @@ class QMZGClass(object):
         # 掠夺资源
         for i in range(2):
             # if not self.image_to_string("ziyuan_lveduo_times") == "0/2":
-            if not (self.img_similarity("ziyuan_lveduo_times", 0.1) or self.img_similarity("ziyuan_lveduo_times_2", 0.1)):
+            if not (
+                self.img_similarity("ziyuan_lveduo_times", 0.1) or self.img_similarity("ziyuan_lveduo_times_2", 0.1)):
                 self.mouse_click("ziyuan_lveduo_in", "ziyuan_lveduo_lveduo")
                 self.mouse_click("ziyuan_lveduo_lveduo", "ziyuan_lveduo_jieshu")
                 time.sleep(3)
@@ -330,17 +354,15 @@ class QMZGClass(object):
         }
         for i in range(4):
             if self.img_similarity(switch[i + 1], 1):
-                self.mouse_click(switch[i + 1], "duobao_tiaozhan")
-                for i in range(5):
-                    if not self.img_similarity("duobao_tiaoguo", 1):
-                        self.mouse_click("duobao_tiaoguo", "")
-                        if not self.img_similarity("duobao_tiaoguo", 1):
-                            self.mouse_click("duobao_out_2", "duobao_out")
-                            self.mouse_click(switch[i + 1], "duobao_tiaozhan")
-                        else:
-                            break
-                    else:
+                for j in range(5):
+                    self.mouse_click(switch[i + 1], "duobao_tiaozhan")
+                    if self.img_similarity("duobao_tiaoguo_no", 1):
+                        self.mouse_click("duobao_tiaoguo", "duobao_tiaoguo")
                         break
+                    elif self.img_similarity("duobao_tiaoguo", 1):
+                        break
+                    else:
+                        self.mouse_click("duobao_out_2", "duobao_out")
 
                 self.mouse_click("duobao_tiaozhan", "duobao_ok")
                 self.mouse_click("duobao_ok", "")
@@ -359,4 +381,5 @@ class QMZGClass(object):
 if __name__ == '__main__':
     # ctrl+F1 --> F5
     qmzg = QMZGClass()
+    # qmzg.main()
     qmzg.test()
