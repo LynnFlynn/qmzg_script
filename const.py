@@ -155,3 +155,5 @@ btnConst(930,680,60,30,"duobao_ok")
 btnConst(900,830,80,30,"duobao_ok_2")
 btnConst(910,670,40,40,"duobao_jiachen")
 btnConst(810,810,40,30,"duobao_chongzhi")
+#
+btnConst(320,956,0,0,"liaotian")

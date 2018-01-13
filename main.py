@@ -37,7 +37,7 @@ class QMZGClass(object):
     def test(self):
         # 初始化游戏
         self.init_game()
-        #self.gongcheng_process(1)
+
         return True
 
     def main(self):
@@ -306,8 +306,11 @@ class QMZGClass(object):
         if self.img_similarity("junxie_lingqu", 20):
             self.mouse_click("junxie_lingqu", "")
         self.mouse_click("junxie_out", "zhanjiang_in")
-        #
-        PyKeyboard()
+        #聊天
+        self.mouse_click("liaotian", "")
+        k=PyKeyboard()
+        k.press_key('1')
+        k.press_key(k.enter_key)
         return True
 
     # 国战
