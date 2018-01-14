@@ -28,6 +28,21 @@ def handler(name="def"):
         return dec
     return decorator
 
+def game_item(name="def"):
+    def decorator(func):
+        def dec(*args):
+            print(name)
+            entrance = "{}_in".format(name)
+            exit = "{}_out".format(name)
+            QMZGClass.mouse_click(entrance, exit)
+            result = func(*args)
+            QMZGClass.mouse_click(exit, "zhanjiang_in")
+            print(exit)
+            return result
+        return dec
+    return decorator
+
+
 
 class QMZGClass(object):
     def __init__(self):
@@ -37,7 +52,6 @@ class QMZGClass(object):
     def test(self):
         # 初始化游戏
         self.init_game()
-
         return True
 
     def main(self):
@@ -64,9 +78,10 @@ class QMZGClass(object):
 
     ##鼠标点击
     def mouse_click(self, btn_name, img_name=""):
-        btn = btnDict.get(btn_name)
         if (cfgConst.testModel):
             print("btn : {}".format(btn_name))
+
+        btn = btnDict.get(btn_name)
         _x = btn.x + (btn.w // 2)
         _y = btn.y + (btn.h // 2)
         time.sleep(0.5)
@@ -341,7 +356,6 @@ class QMZGClass(object):
     def qunxiong_process(self):
         print("群雄争霸")
         time.sleep(1)
-
         return True
 
     # 攻城夺宝
