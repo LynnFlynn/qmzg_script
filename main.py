@@ -34,9 +34,7 @@ def game_item(name="def"):
             print(name)
             entrance = "{}_in".format(name)
             exit = "{}_out".format(name)
-            QMZGClass.mouse_click(entrance, exit)
             result = func(*args)
-            QMZGClass.mouse_click(exit, "zhanjiang_in")
             print(exit)
             return result
         return dec
@@ -52,6 +50,7 @@ class QMZGClass(object):
     def test(self):
         # 初始化游戏
         self.init_game()
+        self.juntuan_process()
         return True
 
     def main(self):
@@ -70,8 +69,7 @@ class QMZGClass(object):
         # 国战
         self.guozhan_process()
         # 物资争霸
-        for i in range(2):
-            self.wuzi_process()
+        self.wuzi_process(2)
         # 攻城夺宝
         self.gongcheng_process(1)
         return True
@@ -248,17 +246,26 @@ class QMZGClass(object):
         print("军团")
         self.mouse_click("juntuan_in", "juntuan_out")
         time.sleep(1)
-        #
+        #红包
         self.mouse_click("juntuan_hongbao", "juntuan_hongbao_title")
         if self.img_similarity("juntuan_hongbao_lingqu", 20):
             self.mouse_click("juntuan_hongbao_lingqu", "")
             self.mouse_click("juntuan_hongbao_ok", "")
         else:
             self.mouse_click("juntuan_hongbao_ok", "")
-        #
+        #将星台
         self.mouse_click("juntuan_jiangxing_in", "juntuan_jiangxing_out")
+        list = ["juntuan_jiangxing_1",
+                "juntuan_jiangxing_2",
+                "juntuan_jiangxing_3",
+                "juntuan_jiangxing_4",
+                "juntuan_jiangxing_5"]
+        for i in list:
+            if self.img_similarity(i, 2):
+                self.mouse_click(i, "")
+                break
         self.mouse_click("juntuan_jiangxing_out", "juntuan_out")
-        #
+        #借将
         self.mouse_click("juntuan_jiejiang_in", "juntuan_jiejiang_out")
         if self.img_similarity("juntuan_jiejiang_time", 0.5):
             self.mouse_click("juntuan_jiejiang_huishou", "juntuan_jiejiang_huishou_ok")
@@ -271,13 +278,14 @@ class QMZGClass(object):
         self.mouse_click("juntuan_out", "zhanjiang_in")
 
     # 物资争霸
-    def wuzi_process(self):
+    def wuzi_process(self,times=1):
         print("物资争霸")
         self.mouse_click("wuzi_in", "wuzi_yijian")
         time.sleep(1)
-        self.mouse_click("wuzi_yijian", "wuzi_kaishi")
-        self.mouse_click("wuzi_kaishi", "wuzi_yijian_out")
-        self.mouse_click("wuzi_yijian_out", "wuzi_out")
+        for i in range(times):
+            self.mouse_click("wuzi_yijian", "wuzi_kaishi")
+            self.mouse_click("wuzi_kaishi", "wuzi_yijian_out")
+            self.mouse_click("wuzi_yijian_out", "wuzi_out")
         self.mouse_click("wuzi_out", "zhanjiang_in")
         return True
 
@@ -333,7 +341,7 @@ class QMZGClass(object):
         print("国战")
         self.mouse_click("guozhan_in", "guozhan_out")
         time.sleep(1)
-        #
+        #捐献
         self.mouse_click("guozhan_xinxi_in", "guozhan_juanzeng_in")
         self.mouse_click("guozhan_juanzeng_in", "guozhan_juanzeng_out")
         if self.img_similarity("guozhan_juanzeng_times", 1):
@@ -342,7 +350,7 @@ class QMZGClass(object):
         else:
             self.mouse_click("guozhan_juanzeng_out", "guozhan_xinxi_out")
         self.mouse_click("guozhan_xinxi_out", "guozhan_out")
-        #
+        #选拨膜拜
         self.mouse_click("guozhan_xuanba_in", "guozhan_xuanba_out")
         self.mouse_click("guozhan_xuanba_mobai_1", "guozhan_mobai_out")
         if self.img_similarity("guozhan_xuanba_putongmobai", 1):
@@ -359,7 +367,7 @@ class QMZGClass(object):
         return True
 
     # 攻城夺宝
-    def gongcheng_process(self, times):
+    def gongcheng_process(self, times=1):
         print("攻城夺宝")
         self.mouse_click("duobao_in", "duobao_out")
         time.sleep(1)
@@ -369,26 +377,27 @@ class QMZGClass(object):
             3: "duobao_city_3",
             4: "duobao_city_4"
         }
-        for i in range(4):
-            if self.img_similarity(switch[i + 1], 1):
-                for j in range(5):
-                    self.mouse_click(switch[i + 1], "duobao_tiaozhan")
-                    if self.img_similarity("duobao_tiaoguo_no", 1):
-                        self.mouse_click("duobao_tiaoguo", "duobao_tiaoguo")
-                        break
-                    elif self.img_similarity("duobao_tiaoguo", 1):
-                        break
-                    else:
-                        self.mouse_click("duobao_out_2", "duobao_out")
+        for i in range(times):
+            for i in range(4):
+                if self.img_similarity(switch[i + 1], 1):
+                    for j in range(5):
+                        self.mouse_click(switch[i + 1], "duobao_tiaozhan")
+                        if self.img_similarity("duobao_tiaoguo_no", 1):
+                            self.mouse_click("duobao_tiaoguo", "duobao_tiaoguo")
+                            break
+                        elif self.img_similarity("duobao_tiaoguo", 1):
+                            break
+                        else:
+                            self.mouse_click("duobao_out_2", "duobao_out")
 
-                self.mouse_click("duobao_tiaozhan", "duobao_ok")
-                self.mouse_click("duobao_ok", "")
-                if self.img_similarity("duobao_chongzhi", 1):
-                    self.mouse_click("duobao_chongzhi", "duobao_out")
-                else:
-                    self.mouse_click("duobao_jiachen", "duobao_ok_2")
-                    self.mouse_click("duobao_ok_2", "duobao_out")
-                    time.sleep(1)
+                    self.mouse_click("duobao_tiaozhan", "duobao_ok")
+                    self.mouse_click("duobao_ok", "")
+                    if self.img_similarity("duobao_chongzhi", 1):
+                        self.mouse_click("duobao_chongzhi", "duobao_out")
+                    else:
+                        self.mouse_click("duobao_jiachen", "duobao_ok_2")
+                        self.mouse_click("duobao_ok_2", "duobao_out")
+                        time.sleep(1)
 
         self.mouse_click("duobao_out", "zhanjiang_in")
         return True
