@@ -59,7 +59,7 @@ class QMZGClass(object):
         # 资源秘境
         self.ziyuan_process()
         # 神将府
-        self.shenjiang_process(4, 10, 1)
+        self.shenjiang_process(2, 10, 1)
         # 斩将塔
         self.zhanjiang_process()
         # 军团
@@ -407,5 +407,5 @@ class QMZGClass(object):
 if __name__ == '__main__':
     # ctrl+F1 --> F5
     qmzg = QMZGClass()
-    # qmzg.main()
-    qmzg.test()
+    qmzg.main()
+    # qmzg.test()
