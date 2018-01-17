@@ -407,5 +407,5 @@ class QMZGClass(object):
 if __name__ == '__main__':
     # ctrl+F1 --> F5
     qmzg = QMZGClass()
-    qmzg.main()
-    # qmzg.test()
+    # qmzg.main()
+    qmzg.test()
