@@ -4,8 +4,6 @@ import time, sys, math, operator, os
 import win32api, win32gui, win32con
 from pymouse import PyMouse
 from pykeyboard import PyKeyboard
-# from win32gui import *
-# from win32api import *
 from PIL import ImageGrab, Image
 from functools import reduce
 from const import btnDict
@@ -20,37 +18,25 @@ LOG_DIR = "log"
 def test_mode(name="def"):
     def decorator(func):
         def dec(*args):
-            print("------Start Test------")
-            print(name)
+            print("------Start {}------".format(name))
             result = func(*args)
             print("------End------")
             return result
-
-        return dec
-
-    return decorator
-
-
-def game_item(name="def"):
-    def decorator(func):
-        def dec(*args):
-            result = func(*args)
-            return result
         return dec
     return decorator
-
 
 class QMZGClass(object):
     def __init__(self):
         self.mouse = PyMouse()
 
-    @test_mode()
+    @run_mode("test")
     def test(self):
         # 初始化游戏
         self.init_game()
         self.juntuan_process()
         return True
 
+    @run_mode("common")
     def main(self):
         # 初始化游戏
         self.init_game()
